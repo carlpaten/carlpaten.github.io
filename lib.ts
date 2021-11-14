@@ -23,6 +23,7 @@ export async function checkoutRemoteGitBranch(remote: string, name: string) {
   try {
     await exec(`git checkout ${name}`);
   } catch {
+    await exec(`git fetch ${remote} ${name}`)
     await exec(`git checkout --track ${remote}/${name}`);
   }
 
