@@ -25,7 +25,7 @@
     "zod": "^3.11.6"
   },
   "scripts": {
-    "ts-node": "node --input-type=module --loader ts-node/esm --experimental-specifier-resolution=node",
+    "ts-node": "node --input-type=module --loader ts-node/esm --experimental-specifier-resolution=node --unhandled-rejections=strict",
     "build": "yarn ts-node -e '(await import(\"./index.js\")).build()'",
     "build:watch": "nodemon --ignore dist --ignore node_modules --ext '*' --exec yarn build",
     "deploy": "yarn ts-node -e '(await import(\"./index.js\")).deploy()'"
