@@ -12,6 +12,7 @@ import CleanCSS from "clean-css";
 const frontMatterSchema = z.object({
   title: z.string(),
   description: z.string(),
+  date: z.string().transform((s) => DateTime.fromISO(s)),
 });
 
 type FrontMatter = z.infer<typeof frontMatterSchema>;
@@ -20,8 +21,6 @@ type Article = {
   frontMatter: FrontMatter,
   body: string;
   slug: string;
-  createdAt: DateTime;
-  updatedAt: DateTime;
 };
 
 const Head: React.FC<{ styles: string }> = (props) => {
@@ -60,12 +59,12 @@ const TableOfContents: React.FC<{ articles: Article[] }> = (props) => {
         <div id="table-of-contents">
           <ul>
             {props.articles
-              .sort((a, b) => a.createdAt.toMillis() - b.createdAt.toMillis())
+              .sort((a, b) => a.frontMatter.date.toMillis() - b.frontMatter.date.toMillis())
               .map((article) => (
                 <li key={article.slug}>
                   <header>
                     <a href={`./${article.slug}.html`}><h2>{article.frontMatter.title}</h2></a>
-                    <div className="date">{article.createdAt.toLocaleString(DateTime.DATE_FULL)}</div>
+                    <div className="date">{article.frontMatter.date.toLocaleString(DateTime.DATE_FULL)}</div>
                   </header>
                   <section>
                     {article.frontMatter.description}
@@ -105,13 +104,10 @@ async function parseArticles(dir: string): Promise<{ fileName: string; body: Rea
       if (!frontMatterMatch) throw new Error(`Article is malformed: ${filePath}`)
       const frontMatter = frontMatterSchema.parse(yaml.load(frontMatterMatch[1]));
       const body = frontMatterMatch[3];
-      const metadata = await fs.stat(filePath);
       return {
         frontMatter,
         body,
         slug: fileName.replace(/^([a-z0-9-]+).md$/, "$1"),
-        createdAt: DateTime.fromMillis(metadata.ctimeMs),
-        updatedAt: DateTime.fromMillis(metadata.mtimeMs),
       };
     })
   );
