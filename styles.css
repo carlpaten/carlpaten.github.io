@@ -1,0 +1,72 @@
+:root {
+  --fontFamily-sans: Montserrat, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --fontFamily-serif: "Merriweather", "Georgia", Cambria, "Times New Roman",
+    Times, serif;
+}
+
+body {
+  font-family: var(--fontFamily-serif);
+  max-width: 672px;
+  margin: 2.5rem auto;
+}
+
+h1 h2 h3 h4 h5 h6 {
+  font-family: var(--fontFamily-sans);
+}
+
+h1 {
+    margin-bottom: 3rem;
+}
+
+#about-the-author {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+
+  margin-bottom: 4rem;
+}
+
+#profile-pic-container {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+#profile-pic-container img {
+  max-width: 100%;
+  object-fit: cover;
+
+  opacity: 0;
+  transition: opacity 0.25s linear;
+}
+
+#table-of-contents ul {
+  padding-left: 0;
+}
+
+#table-of-contents header h2 {
+  margin-bottom: 0.5rem;
+}
+
+#table-of-contents header {
+  margin-bottom: 1.5rem;
+}
+
+#table-of-contents a {
+  text-decoration: none;
+  color: #005b99;
+}
+
+#table-of-contents li {
+  list-style: none;
+  margin-top: 2rem;
+}
+
+#table-of-contents .date {
+  font-size: 80%;
+}

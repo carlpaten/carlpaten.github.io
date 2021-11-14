@@ -1,0 +1,43 @@
+{
+  "name": "@carlpaten/blog",
+  "version": "1.0.0",
+  "type": "module",
+  "repository": "https://github.com/carlpaten/carlpaten.github.io",
+  "author": "Carl Patenaude-Poulin <carlpaten@protonmail.com>",
+  "license": "CC-BY-4.0",
+  "private": false,
+  "dependencies": {
+    "@types/clean-css": "^4.2.5",
+    "@types/js-yaml": "^4.0.4",
+    "@types/luxon": "^2.0.7",
+    "@types/marked": "^4.0.0",
+    "@types/node": "^16.11.7",
+    "@types/react": "^17.0.34",
+    "@types/react-dom": "^17.0.11",
+    "clean-css": "^5.2.2",
+    "js-yaml": "^4.1.0",
+    "luxon": "^2.1.1",
+    "marked": "^4.0.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4",
+    "zod": "^3.11.6"
+  },
+  "scripts": {
+    "ts-node": "node --input-type=module --loader ts-node/esm --experimental-specifier-resolution=node",
+    "build": "yarn ts-node -e '(await import(\"./index.js\")).build()'",
+    "build:watch": "nodemon --ignore dist --ignore node_modules --ext '*' --exec yarn build",
+    "deploy": "yarn ts-node -e '(await import(\"./index.js\")).deploy()'"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.3.1",
+    "@typescript-eslint/parser": "^5.3.1",
+    "eslint": "^7.2.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.27.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "nodemon": "^2.0.15"
+  }
+}

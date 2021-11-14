@@ -1,0 +1,37 @@
+{
+  "env": {
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:import/recommended",
+    // "plugin:jsx-a11y/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "@typescript-eslint/quotes": ["ERROR", "double"],
+
+    // *.js is required for ESM module resolution
+    "import/extensions": ["ERROR", "always"],
+
+    "@typescript-eslint/naming-convention": [
+      "ERROR",
+      {
+        "selector": ["default"],
+        "format": ["strictCamelCase", "StrictPascalCase"],
+        "leadingUnderscore": "allowSingleOrDouble"
+      },
+      {
+        "selector": ["typeLike"],
+        "format": ["StrictPascalCase"]
+      }
+    ]
+  }
+}
