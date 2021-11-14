@@ -16,21 +16,22 @@ export async function usingTemporaryDirectory<T>(name: string, callback: (path: 
   }
 }
 
-export async function checkoutGitBranch(name: string) {
+export async function checkoutRemoteGitBranch(remote: string, name: string) {
   const { stdout: status } = await exec("git status --porcelain");
   if (status !== "") throw new Error("Must commit or stash changes before proceeding");
 
   try {
     await exec(`git checkout ${name}`);
   } catch {
-    await exec(`git checkout -b ${name}`);
-    await exec(`git push --set-upstream origin ${name}`);
+    await exec(`git checkout --track ${remote}/${name}`);
   }
+
+  await exec("git pull");
 }
 
-export async function usingGitBranch<T>(name: string, callback: () => Promise<T>): Promise<T> {
+export async function usingRemoteGitBranch<T>(remote: string, name: string, callback: () => Promise<T>): Promise<T> {
   const { stdout: originalBranch } = await exec("git rev-parse --abbrev-ref HEAD");
-  await checkoutGitBranch(name);
+  await checkoutRemoteGitBranch(remote, name);
   await exec("git pull");
   try {
     return await callback();

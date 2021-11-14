@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/server.js";
 import { marked } from "marked";
 import { promises as fs, constants as fsConstants } from "fs";
 import path from "path";
-import { ensureDirectoryExists, exec, usingGitBranch } from "./lib.js";
+import { ensureDirectoryExists, exec, usingRemoteGitBranch } from "./lib.js";
 import { DateTime } from "luxon";
 import yaml from "js-yaml";
 import { z } from "zod";
@@ -167,7 +167,7 @@ export async function deploy() {
 
   const releaseBranch = "dist";
   const assetsDir = "assets";
-  await usingGitBranch(releaseBranch, async () => {
+  await usingRemoteGitBranch("origin", releaseBranch, async () => {
     await ensureDirectoryExists(assetsDir)
     await Promise.all([
       ...articles.map(({ fileName, body }) =>
