@@ -1,6 +1,6 @@
 ---
-title: Hello, world!
-description: Placeholder article while I finish developing the blog generator.
+title: "Hello, world!"
+description: "Placeholder article while I finish developing the blog generator."
 ---
 
 # Hello, world!
